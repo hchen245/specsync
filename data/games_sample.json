@@ -1,0 +1,26 @@
+[
+  {
+    "title": "The Witcher 3",
+    "genres": ["RPG"],
+    "cpu_rec": 6000,
+    "gpu_rec": 7000,
+    "ram_rec": 8,
+    "vram_rec": 6
+  },
+  {
+    "title": "Skyrim Special Edition",
+    "genres": ["RPG"],
+    "cpu_rec": 5000,
+    "gpu_rec": 6000,
+    "ram_rec": 8,
+    "vram_rec": 4
+  },
+  {
+    "title": "Cyberpunk 2077",
+    "genres": ["RPG", "Action"],
+    "cpu_rec": 9000,
+    "gpu_rec": 12000,
+    "ram_rec": 16,
+    "vram_rec": 8
+  }
+]
