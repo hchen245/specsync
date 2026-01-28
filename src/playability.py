@@ -3,9 +3,9 @@ def compute_playability(game, user_hw):
     gpu_ratio = user_hw["gpu"] / game["gpu_rec"]
     ram_ratio = user_hw["ram"] / game["ram_rec"]
 
-    cpu_ratio = min(cpu_ratio, 1.5)
-    gpu_ratio = min(gpu_ratio, 1.5)
-    ram_ratio = min(ram_ratio, 1.5)
+    cpu_ratio = min(cpu_ratio, 3)
+    gpu_ratio = min(gpu_ratio, 3)
+    ram_ratio = min(ram_ratio, 3)
 
     score = (
         0.5 * gpu_ratio +
