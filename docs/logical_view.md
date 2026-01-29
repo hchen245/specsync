@@ -1,22 +1,31 @@
-Game {
-  game_id: string
-  title: string
+# Logical View Draft
 
-  # --- Text view (for TF-IDF) ---
-  genres: [string]
-  tags: [string]
-  text_doc: string   # genres + tags 
+## Keywords
 
-  # --- Hardware view (for ranking) ---
-  min_cpu: string
-  rec_cpu: string
-  min_gpu: string
-  rec_gpu: string
-  min_ram_gb: number
-  rec_ram_gb: number
-  rec_vram_gb: number (optional)
+- Game titles and Genres
+  Doesn't need to match exactly
 
-  # --- Derived later ---
-  cpu_score: number (from Kaggle)
-  gpu_score: number (from Kaggle)
-}
+## Computer Information
+
+- Operating System
+  This can possibly be done through some kind of dropdown
+
+- User's CPU, GPU, RAM information
+
+- Recommended & Minimum Specs per game
+  This can be displayed using information from API's or Databse, put onto the frontend
+
+- Calculated hardware scores for GPU, CPU, RAM, VRAM
+  This is done through the backend through communication with the databases & APIs, displayed as text. Info from Kaggle.
+
+## Game information
+
+- Game ID
+
+- Game title
+
+- Game genres
+
+- Game cover art(text), recommended specs
+
+- Brief game description if applicable (text)
