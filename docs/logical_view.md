@@ -3,20 +3,20 @@
 ## Keywords
 
 - Game titles and Genres
-  Doesn't need to match exactly
+  - Doesn't need to match exactly
 
 ## Computer Information
 
 - Operating System
-  This can possibly be done through some kind of dropdown
+  - This can possibly be done through some kind of dropdown
 
 - User's CPU, GPU, RAM information
 
 - Recommended & Minimum Specs per game
-  This can be displayed using information from API's or Databse, put onto the frontend
+  - This can be displayed using information from API's or Databse, put onto the frontend
 
 - Calculated hardware scores for GPU, CPU, RAM, VRAM
-  This is done through the backend through communication with the databases & APIs, displayed as text. Info from Kaggle.
+  - This is done through the backend through communication with the databases & APIs, displayed as text. Info from Kaggle.
 
 ## Game information
 
