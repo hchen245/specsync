@@ -92,12 +92,12 @@ def fetch_all_games(total_games=1000, page_size=40):
     
 
 def save_raw_games(games, filename):
-    path = f"../data/{filename}"
+    path = f"data/{filename}"
     with open(path, "w", encoding="utf-8") as f:
         json.dump(games, f, indent=2)
 
 def load_games(filename):
-    path = os.path.join("../data", filename)
+    path = os.path.join("data", filename)
     with open(path, "r", encoding="utf-8") as f:
         return json.load(f)
 

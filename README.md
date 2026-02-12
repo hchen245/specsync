@@ -12,11 +12,10 @@ the system ranks games based on a Playability Score derived from benchmark data 
 - Kaggle CPU benchmark dataset
 - Kaggle GPU benchmark dataset
 
-## Current Status
-This is an early-stage prototype for CS 125. The system currently supports:
-- Loading sample game and benchmark data
-- Computing a baseline Playability Score
-- Demonstrating a simple ranked search result
+## Improvement
+optimization for ranking
+- The hardware socre weight is too high; the text relevance weight is too low
+- Cosine Similarity is too low, lowercase(.lower()), no stemming/lemmatization
 
 ## How to Run (Prototype)
 ```bash

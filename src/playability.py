@@ -1,8 +1,24 @@
 def compute_playability(game, user_hw):
-    cpu_ratio = user_hw["cpu"] / game["cpu_rec"]
-    gpu_ratio = user_hw["gpu"] / game["gpu_rec"]
+    import pandas as pd
+    # Load CPU and GPU benchmarks
+    cpu_benchmarks = pd.read_csv("data/CPU_benchmark_v4.csv")
+    gpu_benchmarks = pd.read_csv("data/GPU_benchmarks_v7.csv")
+
+    # Find user CPU and GPU scores
+    user_cpu_row = cpu_benchmarks[cpu_benchmarks["cpuName"].str.lower() == user_hw["cpu_model"].lower()]
+    user_gpu_row = gpu_benchmarks[gpu_benchmarks["gpuName"].str.lower() == user_hw["gpu_model"].lower()]
+
+    # Fallback if not found
+    user_cpu_score = user_cpu_row["cpuMark"].values[0] if not user_cpu_row.empty else 1000
+    user_gpu_score = user_gpu_row["G3Dmark"].values[0] if not user_gpu_row.empty else 1000
+
+    # Game recommended scores
+    game_cpu_score = game.get("cpu_rec", 1000)
+    game_gpu_score = game.get("gpu_rec", 1000)
     ram_ratio = user_hw["ram"] / game["ram_rec"]
 
+    cpu_ratio = user_cpu_score / game_cpu_score
+    gpu_ratio = user_gpu_score / game_gpu_score
     cpu_ratio = min(cpu_ratio, 3)
     gpu_ratio = min(gpu_ratio, 3)
     ram_ratio = min(ram_ratio, 3)

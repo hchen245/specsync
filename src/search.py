@@ -5,14 +5,14 @@ from sklearn.metrics.pairwise import linear_kernel
 
 #let user input their hardware specs
 print("Enter your hardware specifications:")
-cpu = float(input("CPU score: "))
-gpu = float(input("GPU score: "))
+cpu_model = input("CPU model (e.g., Intel i7-9700K): ")
+gpu_model = input("GPU model (e.g., NVIDIA GTX 1060): ")
 ram = float(input("RAM (GB): "))
 vram = float(input("VRAM (GB): "))
 
 user_hw = {
-    "cpu": cpu,
-    "gpu": gpu,
+    "cpu_model": cpu_model,
+    "gpu_model": gpu_model,
     "ram": ram,
     "vram": vram
 }
@@ -48,19 +48,16 @@ def search_games(query, user_hw, top_n=10, candidate_n=50):
 
         game = games[i]
         score, note = compute_playability(game, user_hw)
-        cpu_ratio = min(user_hw["cpu"] / game["cpu_rec"], 3)
-        gpu_ratio = min(user_hw["gpu"] / game["gpu_rec"], 3)
-        ram_ratio = min(user_hw["ram"] / game["ram_rec"], 3)
-        results.append((game["name"], score, cpu_ratio, gpu_ratio, ram_ratio, note, cosine_sim[i]))
+        results.append((game["name"], score, note, cosine_sim[i]))
     # Sort by playability score and then by relevance
-    results.sort(key=lambda x: (x[1], x[6]), reverse=True)
+    results.sort(key=lambda x: (x[1], x[3]), reverse=True)
     return results[:top_n]
 
 if __name__ == "__main__":
     results = search_games(query_text, user_hw)
 
     print(f"\nSearch results for query: {query_text}\n")
-    print(f"{'Game Name':30} {'Score':>5} {'CPU':>5} {'GPU':>5} {'RAM':>5} {'VRAM':>8} {'CosSim':>7}")
-    print("-" * 75)
-    for name, score, cpu_ratio, gpu_ratio, ram_ratio, vram_note, cos_sim in results:
-        print(f"{name[:30]:30} {score:5.2f} {cpu_ratio:5.2f} {gpu_ratio:5.2f} {ram_ratio:5.2f} {vram_note:>8} {cos_sim:7.2f}")
+    print(f'{"Game Name":30} {"Score":>5} {"Note":>15} {"CosSim":>7}')
+    print("-" * 60)
+    for name, score, note, cos_sim in results:
+        print(f"{name[:30]:30} {score:5.2f} {note:>15} {cos_sim:7.2f}")
