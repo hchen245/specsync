@@ -26,7 +26,7 @@ Commit hash/tag: 66eed42
 
 1. Clone the repository:
 	```bash
-	git clone https://github.com/hchen245/specsync
+	git clone [[repo link]](https://github.com/hchen245/specsync)
 	```
 
 2. Set up the Python environment:
