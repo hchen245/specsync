@@ -1,8 +1,10 @@
 def compute_playability(game, user_hw):
     import pandas as pd
-    # Load CPU and GPU benchmarks
-    cpu_benchmarks = pd.read_csv("data/CPU_benchmark_v4.csv")
-    gpu_benchmarks = pd.read_csv("data/GPU_benchmarks_v7.csv")
+    import os
+    # Load CPU and GPU benchmarks with robust path
+    base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "data"))
+    cpu_benchmarks = pd.read_csv(os.path.join(base_dir, "CPU_benchmark_v4.csv"))
+    gpu_benchmarks = pd.read_csv(os.path.join(base_dir, "GPU_benchmarks_v7.csv"))
 
     # Find user CPU and GPU scores
     user_cpu_row = cpu_benchmarks[cpu_benchmarks["cpuName"].str.lower() == user_hw["cpu_model"].lower()]

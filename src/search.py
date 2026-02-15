@@ -1,3 +1,5 @@
+
+import os
 from load_data import load_games
 from playability import compute_playability
 from sklearn.feature_extraction.text import TfidfVectorizer
@@ -22,7 +24,8 @@ query_text = input("Enter your search query (e.g., RPG multiplayer open world): 
 
 #load games data
 print("\nLoading processed game data...")
-games = load_games("games_processed.json")
+data_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "data", "games_processed.json"))
+games = load_games(data_path)
 print(f"Loaded {len(games)} games")
 
 game_docs = [g["text_doc"].lower() + " " + g["name"].lower() for g in games]

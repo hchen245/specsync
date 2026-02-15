@@ -20,13 +20,13 @@ optimization for ranking
 ## How to Run (Prototype)
 ## Repository
 Repository: https://github.com/hchen245/specsync
-Commit hash/tag: 129584d
+Commit hash/tag: 66eed42
 
 ## How to Run
 
 1. Clone the repository:
 	```bash
-	git clone [repo link]
+	git clone https://github.com/hchen245/specsync
 	```
 
 2. Set up the Python environment:
