@@ -18,5 +18,42 @@ optimization for ranking
 - Cosine Similarity is too low, lowercase(.lower()), no stemming/lemmatization
 
 ## How to Run (Prototype)
-```bash
-python src/search.py
+## Repository
+Repository: https://github.com/hchen245/specsync
+Commit hash/tag: 129584d
+
+## How to Run
+
+1. Clone the repository:
+	```bash
+	git clone [repo link]
+	```
+
+2. Set up the Python environment:
+	```bash
+	cd specsync
+	python -m venv .venv
+	.venv\Scripts\activate  # (Windows)
+	pip install -r requirements.txt
+	```
+
+3. (Optional) Ingest or preprocess data if needed:
+	- Data files are already included in the data/ directory.
+
+4. Run the backend search system:
+	```bash
+	cd src
+	python search.py
+	```
+
+5. (If frontend is ready) Start the frontend:
+	```bash
+	cd src/frontend/specsync-frontend
+	npm install
+	npm start
+	```
+
+6. Access the UI at http://localhost:3000 (or your frontend port).
+
+## Note
+Currently, the frontend and backend are not yet connected. Integration is planned to enable real-time search and recommendations from the web interface.
