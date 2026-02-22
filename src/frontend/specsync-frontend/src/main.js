@@ -7,10 +7,10 @@ app.innerHTML = `
 
     <form id="search-form" style="display: grid; gap: 10px; grid-template-columns: 1fr 1fr;">
       <input name="query" placeholder="Query (e.g., RPG open world)" required style="grid-column: 1 / -1; padding: 8px;" />
-      <input name="cpu_model" placeholder="CPU model" value="Intel i7-9700K" required style="padding: 8px;" />
-      <input name="gpu_model" placeholder="GPU model" value="NVIDIA GTX 1060" required style="padding: 8px;" />
-      <input name="ram" type="number" min="1" step="0.1" value="16" placeholder="RAM (GB)" required style="padding: 8px;" />
-      <input name="vram" type="number" min="1" step="0.1" value="6" placeholder="VRAM (GB)" required style="padding: 8px;" />
+      <input name="cpu_model" placeholder="CPU model (e.g., Intel i7-9700K)" required style="padding: 8px;" />
+      <input name="gpu_model" placeholder="GPU model (e.g., NVIDIA GTX 1060)" required style="padding: 8px;" />
+      <input name="ram" type="number" min="1" step="0.1" placeholder="RAM (GB)" required style="padding: 8px;" />
+      <input name="vram" type="number" min="1" step="0.1" placeholder="VRAM (GB)" required style="padding: 8px;" />
       <button type="submit" style="grid-column: 1 / -1; padding: 10px;">Search</button>
     </form>
 
