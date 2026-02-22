@@ -40,20 +40,20 @@ Commit hash/tag: 66eed42
 3. (Optional) Ingest or preprocess data if needed:
 	- Data files are already included in the data/ directory.
 
-4. Run the backend search system:
+4. Run the backend API server:
 	```bash
 	cd src
-	python search.py
+	uvicorn search:app --reload --port 8000
 	```
 
-5. (If frontend is ready) Start the frontend:
+5. Start the frontend:
 	```bash
 	cd src/frontend/specsync-frontend
 	npm install
-	npm start
+	npm run dev
 	```
 
-6. Access the UI at http://localhost:3000 (or your frontend port).
+6. Access the UI at http://localhost:5173.
 
 ## Note
-Currently, the frontend and backend are not yet connected. Integration is planned to enable real-time search and recommendations from the web interface.
+Frontend and backend are connected via `POST /search` on `http://localhost:8000`.
