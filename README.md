@@ -34,6 +34,7 @@ Commit hash/tag: 66eed42
 	cd specsync
 	python -m venv .venv
 	.venv\Scripts\activate  # (Windows)
+	source .venv/bin/activate # (Mac)
 	pip install -r requirements.txt
 	```
 

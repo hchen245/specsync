@@ -3,6 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Controller, useForm } from "react-hook-form"
 import * as z from "zod"
+import { Input } from "@/components/ui/input"
 
 import {
   Card,
@@ -14,65 +15,70 @@ import {
 import {
   Field,
   FieldContent,
-
   FieldGroup,
   FieldLabel,
   FieldDescription
 } from "@/components/ui/field"
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectSeparator,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
 import { Button } from "@/components/ui/button"
 
-export function SpecForm() {
-    
-    const gpuOptions = [
-        { label: "GPU2", value: "gp1" },
-        { label: "GPU3", value: "gp2" },
-        { label: "GPU4", value: "gp3" },
-    ]
-
-    const processorOptions = [
-        { label: "P2", value: "p1" },
-        { label: "P3", value: "p2" },
-        { label: "P4", value: "p3" },
-    ]
-
-    const genreOptions = [
-        { label: "G2", value: "G2" },
-        { label: "G3", value: "G3" },
-        { label: "G4", value: "G4" },
-    ]
+export function SpecForm({ setResults }) {
     const formSchema = z.object({
-    title: z
-        .string(),
+
     gpu: z
         .string(),
-    processor: z
+    query: z
         .string(),
-    genre: z
-        .string()
+    cpu: z
+        .string(),
+    ram: z
+        .string(),
+    vram: z
+        .string(),
     
     })
 
     const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-        title: "",
         gpu: "",
-        processor: "",
+        query: "",
+        cpu: "",
+        ram: "",
+        vram: "",
     },
     })
 
-    function onSubmit(data: z.infer<typeof formSchema>) {
-        console.log("The api call will be made here with", data);
-        // we will pass the result here to
-        // setResult() state handler
+    async function onSubmit(data: z.infer<typeof formSchema>) {
+        console.log("The api call will be made here with", data.gpu);
+        const payload = {
+            query: data.query,
+            cpu_model: data.cpu,
+            gpu_model: data.gpu,
+            ram: Number(data.ram),
+            vram: Number(data.vram),
+            top_n: 10,
+        }
+
+        try {
+            const response = await fetch("http://localhost:8000/search", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(payload),
+                })
+
+            if (!response.ok) {
+                throw new Error("Failed to fetch results")
+            }
+
+            const result = await response.json()
+
+            console.log("Search results:", result)
+            setResults(result.results);
+        } catch (error) {
+            console.error("Error:", error)
+        }
     }
 
     return (
@@ -81,133 +87,125 @@ export function SpecForm() {
         <CardContent>
             <form id="form-rhf-specs" onSubmit={form.handleSubmit(onSubmit)}>
                 <FieldGroup>
-                    <Controller 
+
+                    <Controller
+                    name="query"
+                    control={form.control}
+                    render={({ field, fieldState }) => (
+                        <Field data-invalid={fieldState.invalid}>
+                            <FieldContent>
+                                <FieldLabel htmlFor={field.name}>Query</FieldLabel>
+
+                                <FieldDescription>
+                                    Enter query
+                                </FieldDescription>
+                            </FieldContent>
+                            <Input
+                                {...field}
+                                id={field.name}
+                                aria-invalid={fieldState.invalid}
+                                placeholder="Enter Query"
+                                autoComplete="off"
+                            />
+
+                        </Field>
+                    )}
+                    />
+                    <Controller
+                    name="cpu"
+                    control={form.control}
+                    render={({ field, fieldState }) => (
+                        <Field data-invalid={fieldState.invalid}>
+                            <FieldContent>
+                                <FieldLabel htmlFor={field.name}>CPU</FieldLabel>
+
+                                <FieldDescription>
+                                    Enter CPU
+                                </FieldDescription>
+                            </FieldContent>
+                            <Input
+                                {...field}
+                                id={field.name}
+                                aria-invalid={fieldState.invalid}
+                                placeholder="Enter CPU"
+                                autoComplete="off"
+                            />
+
+                        </Field>
+                    )}
+                    />
+                    <Controller
                     name="gpu"
                     control={form.control}
-                    render={({ field, fieldState}) => (
-                        <Field orientation="responsive" data-invalid={fieldState.invalid}>
+                    render={({ field, fieldState }) => (
+                        <Field data-invalid={fieldState.invalid}>
                             <FieldContent>
-                                <FieldLabel htmlFor="form-rhf-select-gpu">
-                                    <i className="bi bi-laptop"></i>
-                                    Graphics Card
-                                </FieldLabel>
+                                <FieldLabel htmlFor={field.name}>GPU</FieldLabel>
+
                                 <FieldDescription>
-                                    Select the GPU you use
+                                    Enter gpu
                                 </FieldDescription>
                             </FieldContent>
-                            <Select
-                            name={field.name}
-                            value={field.value}
-                            onValueChange={field.onChange}
-                            >
-                                <SelectTrigger
-                                id="form-rhf-select-gpu"
+                            <Input
+                                {...field}
+                                id={field.name}
                                 aria-invalid={fieldState.invalid}
-                                className="min-w-30">
-                                    <SelectValue placeholder="Select" />
-                                </SelectTrigger>
-                                <SelectContent>
-                                    <SelectItem value="gpu">GPU0</SelectItem>
-
-                                    <SelectSeparator />
-
-                                    {gpuOptions.map((option) => (
-                                        <SelectItem key={option.value} value={option.value}>
-                                        {option.label}
-                                        </SelectItem>
-                                    ))}
-                                </SelectContent>
-
-                            </Select>
+                                placeholder="Enter gpu"
+                                autoComplete="off"
+                            />
 
                         </Field>
                     )}
                     />
-                    <Controller 
-                    name="processor"
+
+                    <Controller
+                    name="ram"
                     control={form.control}
-                    render={({ field, fieldState}) => (
-                        <Field orientation="responsive" data-invalid={fieldState.invalid}>
+                    render={({ field, fieldState }) => (
+                        <Field data-invalid={fieldState.invalid}>
                             <FieldContent>
-                                <FieldLabel htmlFor="form-rhf-select-processor">
-                                    <i className="bi bi-cpu"></i>
-                                    Processor
-                                </FieldLabel>
+                                <FieldLabel htmlFor={field.name}>Ram</FieldLabel>
+
                                 <FieldDescription>
-                                    Select the processor you use
+                                    Enter ram
                                 </FieldDescription>
                             </FieldContent>
-                            <Select
-                            name={field.name}
-                            value={field.value}
-                            onValueChange={field.onChange}
-                            >
-                                <SelectTrigger
-                                id="form-rhf-select-processor"
+                            <Input
+                                type="number"
+                                {...field}
+                                id={field.name}
                                 aria-invalid={fieldState.invalid}
-                                className="min-w-30">
-                                    <SelectValue placeholder="Select" />
-                                </SelectTrigger>
-                                <SelectContent>
-                                    <SelectItem value="p0">P0</SelectItem>
-
-                                    <SelectSeparator />
-
-                                    {processorOptions.map((option) => (
-                                        <SelectItem key={option.value} value={option.value}>
-                                        {option.label}
-                                        </SelectItem>
-                                    ))}
-                                </SelectContent>
-
-                            </Select>
+                                placeholder="Enter ram"
+                                autoComplete="off"
+                            />
 
                         </Field>
                     )}
                     />
-                    <Controller 
-                    name="genre"
+                    <Controller
+                    name="vram"
                     control={form.control}
-                    render={({ field, fieldState}) => (
-                        <Field orientation="responsive" data-invalid={fieldState.invalid}>
+                    render={({ field, fieldState }) => (
+                        <Field data-invalid={fieldState.invalid}>
                             <FieldContent>
-                                <FieldLabel htmlFor="form-rhf-select-genre">
-                                    <i className="bi bi-memory"></i>
-                                    Ram
-                                </FieldLabel>
+                                <FieldLabel htmlFor={field.name}>VRam</FieldLabel>
+
                                 <FieldDescription>
-                                    Select the RAM
+                                    Enter vram
                                 </FieldDescription>
                             </FieldContent>
-                            <Select
-                            name={field.name}
-                            value={field.value}
-                            onValueChange={field.onChange}
-                            >
-                                <SelectTrigger
-                                id="form-rhf-select-genre"
+                            <Input
+                                type="number"
+                                {...field}
+                                id={field.name}
                                 aria-invalid={fieldState.invalid}
-                                className="min-w-30">
-                                    <SelectValue placeholder="Select" />
-                                </SelectTrigger>
-                                <SelectContent>
-                                    <SelectItem value="g0">G0</SelectItem>
-
-                                    <SelectSeparator />
-
-                                    {genreOptions.map((option) => (
-                                        <SelectItem key={option.value} value={option.value}>
-                                        {option.label}
-                                        </SelectItem>
-                                    ))}
-                                </SelectContent>
-
-                            </Select>
+                                placeholder="Enter vram"
+                                autoComplete="off"
+                            />
 
                         </Field>
                     )}
                     />
-
                 </FieldGroup>
             </form>
         </CardContent>
