@@ -14,12 +14,11 @@ import {
 import {
   Field,
   FieldContent,
-  FieldError,
+
   FieldGroup,
   FieldLabel,
   FieldDescription
 } from "@/components/ui/field"
-import { Input } from "@/components/ui/input"
 import {
   Select,
   SelectContent,
@@ -78,31 +77,10 @@ export function SpecForm() {
 
     return (
     <Card id="left-side" className=" text-white w-full h-200 border-gray-900 md:w-[30%] bg-neutral-900 border-2 rounded-md p-4 font-semibold" >
-        <CardHeader className="font-bold text-lg">Enter Your Specs</CardHeader>
+        <CardHeader className="font-semibold text-lg">Enter Your Specs</CardHeader>
         <CardContent>
             <form id="form-rhf-specs" onSubmit={form.handleSubmit(onSubmit)}>
                 <FieldGroup>
-                    {/* <Controller
-                        name="title"
-                        control={form.control}
-                        render={({ field, fieldState }) => (
-                            <Field data-invalid={fieldState.invalid}>
-                            <FieldLabel htmlFor="form-rhf-demo-title">
-                                Bug Title
-                            </FieldLabel>
-                            <Input
-                                {...field}
-                                id="form-rhf-demo-title"
-                                aria-invalid={fieldState.invalid}
-                                placeholder="Login button not working on mobile"
-                                autoComplete="off"
-                            />
-                            {fieldState.invalid && (
-                                <FieldError errors={[fieldState.error]} />
-                            )}
-                            </Field>
-                        )}
-                    /> */}
                     <Controller 
                     name="gpu"
                     control={form.control}
@@ -110,7 +88,8 @@ export function SpecForm() {
                         <Field orientation="responsive" data-invalid={fieldState.invalid}>
                             <FieldContent>
                                 <FieldLabel htmlFor="form-rhf-select-gpu">
-                                    GPU
+                                    <i className="bi bi-laptop"></i>
+                                    Graphics Card
                                 </FieldLabel>
                                 <FieldDescription>
                                     Select the GPU you use
@@ -151,6 +130,7 @@ export function SpecForm() {
                         <Field orientation="responsive" data-invalid={fieldState.invalid}>
                             <FieldContent>
                                 <FieldLabel htmlFor="form-rhf-select-processor">
+                                    <i className="bi bi-cpu"></i>
                                     Processor
                                 </FieldLabel>
                                 <FieldDescription>
@@ -192,10 +172,11 @@ export function SpecForm() {
                         <Field orientation="responsive" data-invalid={fieldState.invalid}>
                             <FieldContent>
                                 <FieldLabel htmlFor="form-rhf-select-genre">
-                                    Genre
+                                    <i className="bi bi-memory"></i>
+                                    Ram
                                 </FieldLabel>
                                 <FieldDescription>
-                                    Select the genre you use
+                                    Select the RAM
                                 </FieldDescription>
                             </FieldContent>
                             <Select
@@ -231,7 +212,8 @@ export function SpecForm() {
             </form>
         </CardContent>
         <CardFooter className="border-t-0 bg-neutral-900 w-full">
-        <Button type="submit" form="form-rhf-specs" className="bg-white text-black w-full">
+        <Button type="submit" form="form-rhf-specs" className="bg-[oklch(0.63_0.17_149)] text-black w-full h-10 text-md">
+            <i className="bi bi-search pr-2"></i>
             Find Games
         </Button>
         </CardFooter>

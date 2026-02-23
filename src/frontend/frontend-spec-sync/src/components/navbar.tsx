@@ -1,8 +1,4 @@
-
-
 import { Link } from 'react-router-dom';
-
-
 export function Navbar() {
     return (
         <nav className="fixed top-0 w-full bg-black px-4 py-2 flex gap-6">
