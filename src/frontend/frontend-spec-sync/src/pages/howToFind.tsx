@@ -24,6 +24,8 @@ export function HowToFind() {
                             <li>On your sidebar, go to <code className="bg-slate-800 px-1.5 py-0.5 rounded text-slate-200">Performance</code> and find your GPU at the bottom. It may have a number associated with it, such as 0 or 1. Your dedicated GPU will have a section titled <code className="bg-slate-800 px-1.5 py-0.5 rounded text-slate-200">Dedicated GPU memory</code>. That is the GPU you'll be using here, and that is your VRAM.</li>
                             <li>Once the GPU is selected under performance, the GPU name will be visible on the top right corner.</li>
                         </ol>
+                        <br></br>
+                        <i><p>Note that if you have an integrated GPU, you can simply type in <code className="bg-slate-800 px-1.5 py-0.5 rounded text-slate-200">integrated</code> into the GPU selection.</p></i>
                     </div>
                 </section>
 
