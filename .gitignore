@@ -3,4 +3,3 @@ __pycache__/
 src/frontend/specsync-frontend/node_modules/
 src/frontend/specsync-frontend/.vite/
 src/frontend/specsync-frontend/dist/
-.venv
