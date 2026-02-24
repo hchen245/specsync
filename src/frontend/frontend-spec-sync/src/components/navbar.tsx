@@ -8,6 +8,9 @@ export function Navbar() {
             <Link to="/find-games" className="text-white hover:bg-gray-700 px-3 py-1 rounded-sm">
                 Find A game
             </Link>
+            <Link to="/how-to-find" className="text-white hover:bg-gray-700 px-3 py-1 rounded-sm">
+                How to find specs?
+            </Link>
         </nav>
 
     )
