@@ -187,4 +187,6 @@ This project is for educational purposes (CS125 course project).
 
 ## Contributors
 
-- GitHub: [@hchen245](https://github.com/hchen245)
+- [@hchen245](https://github.com/hchen245)
+- [@anastar99](https://github.com/anastar99)
+- [@beutan1](https://github.com/beutan1)
