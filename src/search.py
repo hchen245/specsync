@@ -36,7 +36,9 @@ def search_games(query, user_hw, top_n=10, candidate_n=50):
         score, note = compute_playability(game, user_hw)
         results.append((game["name"], score, note, cosine_sim[i]))
 
-    results.sort(key=lambda x: (x[1], x[3]), reverse=True)
+    # Sort by weighted relevance: text similarity (60%) + hardware compatibility (40%)
+    # This ensures highly relevant games appear even if hardware is inadequate
+    results.sort(key=lambda x: (x[3] * 0.6 + x[1] * 0.004, x[1]), reverse=True)
     return results[:top_n]
 
 

@@ -2,6 +2,8 @@
 
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Controller, useForm } from "react-hook-form"
+import type { Dispatch, SetStateAction } from "react"
+import { useEffect } from "react"
 import * as z from "zod"
 import { Input } from "@/components/ui/input"
 
@@ -20,8 +22,13 @@ import {
   FieldDescription
 } from "@/components/ui/field"
 import { Button } from "@/components/ui/button"
+import type { SearchResult } from "@/components/results"
 
-export function SpecForm({ setResults }) {
+interface SpecFormProps {
+    setResults: Dispatch<SetStateAction<SearchResult[]>>
+}
+
+export function SpecForm({ setResults }: SpecFormProps) {
     const formSchema = z.object({
 
     gpu: z
@@ -47,6 +54,17 @@ export function SpecForm({ setResults }) {
         vram: "",
     },
     })
+
+    const gpuText = (form.watch("gpu") ?? "").toLowerCase()
+    const hasDedicatedKeyword = ["rtx", "gtx", "rx"].some((keyword) => gpuText.includes(keyword))
+    const hasIntegratedKeyword = ["integrated", "iris", "uhd", "vega", "radeon 6", "radeon 7"].some((keyword) => gpuText.includes(keyword))
+    const hideVramInput = hasIntegratedKeyword && !hasDedicatedKeyword
+
+    useEffect(() => {
+        if (hideVramInput && form.getValues("vram") !== "2") {
+            form.setValue("vram", "2", { shouldValidate: true })
+        }
+    }, [hideVramInput, form])
 
     async function onSubmit(data: z.infer<typeof formSchema>) {
         console.log("The api call will be made here with", data.gpu);
@@ -182,30 +200,32 @@ export function SpecForm({ setResults }) {
                         </Field>
                     )}
                     />
-                    <Controller
-                    name="vram"
-                    control={form.control}
-                    render={({ field, fieldState }) => (
-                        <Field data-invalid={fieldState.invalid}>
-                            <FieldContent>
-                                <FieldLabel htmlFor={field.name}>VRam</FieldLabel>
+                    {!hideVramInput && (
+                        <Controller
+                        name="vram"
+                        control={form.control}
+                        render={({ field, fieldState }) => (
+                            <Field data-invalid={fieldState.invalid}>
+                                <FieldContent>
+                                    <FieldLabel htmlFor={field.name}>VRam</FieldLabel>
 
-                                <FieldDescription>
-                                    Enter vram
-                                </FieldDescription>
-                            </FieldContent>
-                            <Input
-                                type="number"
-                                {...field}
-                                id={field.name}
-                                aria-invalid={fieldState.invalid}
-                                placeholder="Enter vram"
-                                autoComplete="off"
-                            />
+                                    <FieldDescription>
+                                        Enter vram
+                                    </FieldDescription>
+                                </FieldContent>
+                                <Input
+                                    type="number"
+                                    {...field}
+                                    id={field.name}
+                                    aria-invalid={fieldState.invalid}
+                                    placeholder="Enter vram"
+                                    autoComplete="off"
+                                />
 
-                        </Field>
+                            </Field>
+                        )}
+                        />
                     )}
-                    />
                 </FieldGroup>
             </form>
         </CardContent>

@@ -10,7 +10,18 @@ import {
 
 } from "@/components/ui/card"
 
-export function Results({results} ) {
+export interface SearchResult {
+  name: string
+  note: string
+  score: number
+  cosine_similarity: number
+}
+
+interface ResultsProps {
+  results: SearchResult[]
+}
+
+export function Results({ results }: ResultsProps) {
 
     return (
 <Card
@@ -18,7 +29,7 @@ export function Results({results} ) {
   className="text-white w-full h-200 md:w-[70%] border-neutral-800 bg-black border-2 rounded-md p-4 overflow-auto"
 >
   <CardContent className="flex flex-col gap-3">
-    {results.map((result, index) => (
+    {results.map((result: SearchResult, index: number) => (
       <Item
         key={result.name + String(index)}
         className="bg-neutral-900 border border-neutral-800 rounded-md p-4 hover:border-neutral-600 transition"
@@ -43,7 +54,7 @@ export function Results({results} ) {
           <div className="flex justify-between text-sm text-neutral-400">
             <span>Compatibility Score</span>
             <span className="text-white font-medium">
-              {(result.score * 100).toFixed(1)}%
+              {result.score.toFixed(1)}%
             </span>
           </div>
 
