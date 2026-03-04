@@ -1,8 +1,8 @@
 import { GameFinder } from "./pages/gameFinder";
-import { Home } from "./pages/home";
 import { HowToFind } from "./pages/howToFind";
 import { Navbar } from "./components/navbar";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Home from "./pages/home";
 
 
 export function App() {
