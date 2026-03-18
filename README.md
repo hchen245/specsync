@@ -2,6 +2,10 @@
 
 SpecSync is a context-aware game search and recommendation system that helps PC gamers discover compatible games based on their hardware specifications. The system combines text-based search with hardware compatibility scoring to recommend games that will run well on the user's PC.
 
+## Demo
+
+https://github.com/user-attachments/assets/09ec3faf-47a5-47a1-b961-c63944d50ec4
+
 ## Features
 
 ### Intelligent Search
